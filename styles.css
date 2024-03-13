@@ -1,0 +1,23 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    font-family: sans-serif;
+    background-color: rgb(33, 17, 51);
+    color:rgb(239, 224, 255);
+}
+
+#box {
+    width: 840px;
+    height: 560px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(83, 46, 112);
+    background: url('bg.png');
+    outline-color: white;
+    border: 2px solid black;
+}

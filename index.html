@@ -1,0 +1,72 @@
+<head>
+    <link href="styles.css" rel="stylesheet" type="text/css">
+    <title>Fortune Teller</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon"/>, 
+</head>
+
+<body>  
+    <div id="box">
+            <h5 style="margin-bottom: -2%;">“Hoo.. I see a glimmer within my scrying orb... A shard of knowledge from the future!” </h5>
+            <h2 id="luck">Your Daily Luck for today is: </h2>
+            <h4 id="dialogue" style="margin-bottom:25%;"></h4>
+    </div>
+</body>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      roll();
+    });
+
+    function roll() {
+        const currentDate = new Date();
+        const unixEpoch = new Date(1970, 0, 1);
+        const timeDifference = currentDate - unixEpoch;
+        const daysSinceEpoch = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+        const ourRNG = SeedRandom(daysSinceEpoch * 173);
+        var rng = 0;
+
+        rng = ourRNG(1900) + 100;
+
+        rng = rng / 10000;
+        rng -= 0.1;
+        var roundRNG = Math.round(rng * 1000) / 1000;
+
+        document.getElementById("luck").innerHTML = "Your Daily Luck for today is: " + roundRNG + "!";
+
+        var dia;
+
+        if (roundRNG <= -0.07) {dia = "The spirits are very displeased today. They will do their best to make your life difficult.";}
+        else if (roundRNG < -0.02) {dia = "The spirits are somewhat annoyed today. Luck will not be on your side.";}
+        else if (roundRNG == 0) {dia = "This is rare. The spirits feel absolutely neutral today.";}
+        else if (roundRNG <= 0.02) {dia = "The spirits feel neutral today. The day is in your hands.";}
+        else if (roundRNG < 0.07) {dia = "The spirits are in good humor today. I think you'll have a little extra luck.";}
+        else {dia = "The spirits are very happy today! They will do their best to shower everyone with good fortune.";}
+
+        document.getElementById("dialogue").innerHTML = dia;
+    }
+
+    function SeedRandom(state1,state2){
+    var mod1=4294967087
+    var mul1=65539
+    var mod2=4294965887
+    var mul2=65537
+    if(typeof state1!="number"){
+        state1=+new Date()
+    }
+    if(typeof state2!="number"){
+        state2=state1
+    }
+    state1=state1%(mod1-1)+1
+    state2=state2%(mod2-1)+1
+    function random(limit){
+        state1=(state1*mul1)%mod1
+        state2=(state2*mul2)%mod2
+        if(state1<limit && state2<limit && state1<mod1%limit && state2<mod2%limit){
+            return random(limit)
+        }
+        return (state1+state2)%limit
+    }
+    return random
+}
+</script>
